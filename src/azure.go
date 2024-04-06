@@ -34,9 +34,7 @@ func NewAuthorizerFromClientCredentials(auth AzureAuth) (autorest.Authorizer, er
 
 func addToAzureADGroup(ctx context.Context, client graphrbac.GroupsClient, groupID, userEmail string) error {
 	_, err := client.AddMember(ctx, groupID, graphrbac.GroupAddMemberParameters{
-		URL:          to.StringPtr(fmt.Sprintf("https://graph.microsoft.com/v1.0/users/%s", userEmail)),
-		ODataBind:    to.StringPtr(fmt.Sprintf("https://graph.microsoft.com/v1.0/users/%s", userEmail)),
-		ODataContext: to.StringPtr("https://graph.microsoft.com/v1.0/$metadata#groups('group_id')/members/$entity"),
+		URL: to.StringPtr(fmt.Sprintf("https://graph.microsoft.com/v1.0/users/%s", userEmail)),
 	})
 	if err != nil {
 		return err
@@ -44,12 +42,9 @@ func addToAzureADGroup(ctx context.Context, client graphrbac.GroupsClient, group
 	return nil
 }
 
+
 func removeFromAzureADGroup(ctx context.Context, client graphrbac.GroupsClient, groupID, userEmail string) error {
-	_, err := client.RemoveMember(ctx, groupID, graphrbac.GroupRemoveMemberParameters{
-		URL:          fmt.Sprintf("https://graph.microsoft.com/v1.0/users/%s", userEmail),
-		ODataBind:    to.StringPtr(fmt.Sprintf("https://graph.microsoft.com/v1.0/users/%s", userEmail)),
-		ODataContext: to.StringPtr("https://graph.microsoft.com/v1.0/$metadata#groups('group_id')/members/$entity"),
-	})
+	_, err := client.RemoveMember(ctx, groupID, userEmail)
 	if err != nil {
 		return err
 	}

@@ -30,7 +30,6 @@ func getOnCallUser(client *pagerduty.Client) (*PagerDutyUser, error) {
 		return nil, fmt.Errorf("no on-call user found")
 	}
 	// Assuming the first on-call user is the current on-call person
-	// Assuming the first on-call user is the current on-call person
     return &PagerDutyUser{
         ID:        onCalls.OnCalls[0].User.ID,
         Name:      onCalls.OnCalls[0].User.Name,

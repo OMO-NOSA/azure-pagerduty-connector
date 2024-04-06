@@ -30,7 +30,13 @@ func main() {
 		log.Fatalf("Failed to get on-call user from PagerDuty: %v", err)
 	}
 
-	err = HandleOnCall(auth, groupID, onCallUser)
+	// Convert onCallUser to *pagerduty.User
+	pdUser := &pagerduty.User{
+		Name:  onCallUser.Name,
+		Email: onCallUser.Email,
+	}
+
+	err = HandleOnCall(auth, groupID, pdUser)
 	if err != nil {
 		log.Fatalf("Failed to handle on-call user: %v", err)
 	}
