@@ -7,8 +7,8 @@ import (
 	"os"
 	"time"
 
-	"github.com/omo-nosa/azure-pagerduty-integration/azure"
-	"github.com/omo-nosa/azure-pagerduty-integration/pagerduty"
+	"github.com/omo-nosa/azure-pagerduty-connector/azure"
+	"github.com/omo-nosa/azure-pagerduty-connector/pagerduty"
 
 	"github.com/Azure/azure-sdk-for-go/services/graphrbac/1.6/graphrbac"
 	"github.com/PagerDuty/go-pagerduty"
