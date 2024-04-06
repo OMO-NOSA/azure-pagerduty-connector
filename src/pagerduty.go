@@ -2,6 +2,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"time"
 
@@ -9,11 +10,12 @@ import (
 )
 
 func getOnCallUser(client *pagerduty.Client) (*pagerduty.User, error) {
+	ctx:= context.Background()
 	opts := pagerduty.ListOnCallOptions{
 		Since: time.Now().Format(time.RFC3339),
 		Until: time.Now().Add(24 * time.Hour).Format(time.RFC3339),
 	}
-	onCalls, err := client.ListOnCalls(opts)
+	onCalls, err := client.ListOnCallsWithContext(ctx, opts)
 	if err != nil {
 		return nil, err
 	}
