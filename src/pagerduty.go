@@ -9,7 +9,14 @@ import (
 	"github.com/PagerDuty/go-pagerduty"
 )
 
-func getOnCallUser(client *pagerduty.Client) (*pagerduty.User, error) {
+type PagerDutyUser struct {
+
+    ID        string `json:"id"`
+    Name      string `json:"name"`
+    Email     string `json:"email"`
+}
+
+func getOnCallUser(client *pagerduty.Client) (*PagerDutyUser, error) {
 	ctx:= context.Background()
 	opts := pagerduty.ListOnCallOptions{
 		Since: time.Now().Format(time.RFC3339),
@@ -23,5 +30,10 @@ func getOnCallUser(client *pagerduty.Client) (*pagerduty.User, error) {
 		return nil, fmt.Errorf("no on-call user found")
 	}
 	// Assuming the first on-call user is the current on-call person
-	return &onCalls.OnCalls[0].User, nil
+	// Assuming the first on-call user is the current on-call person
+    return &PagerDutyUser{
+        ID:        onCalls.OnCalls[0].User.ID,
+        Name:      onCalls.OnCalls[0].User.Name,
+        Email:     onCalls.OnCalls[0].User.Email,
+    }, nil
 }
